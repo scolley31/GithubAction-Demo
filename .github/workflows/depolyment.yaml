@@ -1,0 +1,31 @@
+name: Manual Deployment to EKS
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag version to deploy'
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.tag }}
+
+      - name: Send workflow URL to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{"content": "A new deployment has been initiated! Approve it here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Pause for approval
+        uses: Convly/wait-for-discord-message@v1
+        id: wait-for-approval
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          triggerMessage: 'approve'
+          timeoutSeconds: 3600

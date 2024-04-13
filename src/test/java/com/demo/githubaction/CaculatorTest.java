@@ -13,7 +13,7 @@ public class CaculatorTest {
         // Given a = 4, b = 5
         int a = 4;
         int b = 5;
-        int expected = 8;
+        int expected = 9;
         // When add(a, b)
         int result = CaculatorHelper.add(a, b);
         // Then result = 9

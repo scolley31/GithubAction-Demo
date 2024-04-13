@@ -24,6 +24,19 @@ jobs:
       - name: Run unit tests
         run: mvn test --file pom.xml
 
+      # Configure AWS credentials
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-1
+
+      # Login to Amazon ECR Public
+      - name: Login to Amazon ECR Public
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
 #      - name: Build Docker image
 #        run: docker build . -t ${{ github.repository }}:${GITHUB_REF_NAME}
 #

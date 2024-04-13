@@ -32,6 +32,10 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+      # Linting the code using Maven. Make sure to configure your linting plugin in your pom.xml.
+    - name: Lint with Maven
+      run: mvn checkstyle:checkstyle
+
       # Run unit tests
     - name: Run unit tests
       run: mvn test --file pom.xml

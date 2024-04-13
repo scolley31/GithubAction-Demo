@@ -1,7 +1,5 @@
 FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app
-
-
 # Copy the .mvn directory (used by Maven for configuration) from the local project to the container
 COPY .mvn/ .mvn
 # Copy the Maven wrapper script (mvnw), the project's POM file (pom.xml), and the root directory to the container

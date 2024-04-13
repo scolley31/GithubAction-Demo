@@ -13,6 +13,6 @@ COPY src ./src
 # Build the Spring Boot application and create a JAR file
 RUN ./mvnw package
 
-COPY target/githubaction-0.0.1-SNAPSHOT.jar ./app.jar
+COPY /target/githubaction-0.0.1-SNAPSHOT.jar ./app.jar
 EXPOSE 8080
 ENTRYPOINT ["sh", "-c", "java  -jar app.jar"]

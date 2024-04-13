@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddRequest {
-    private int a;
+public class AddRequest
+        {
+    private int a
     private int b;
 }

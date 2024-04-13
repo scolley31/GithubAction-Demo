@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+env:
+  ECR_REPOSITORY: demo
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest

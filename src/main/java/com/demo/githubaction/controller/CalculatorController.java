@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/calculator")
 public class CalculatorController {
 
+
     @PostMapping("/add")
     public ResponseEntity<AddResponse> createGame(@RequestBody AddRequest addRequest) {
         AddResponse addResponse = new AddResponse(CaculatorHelper.add(addRequest.getA(), addRequest.getB()));

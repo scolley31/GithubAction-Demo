@@ -50,4 +50,4 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: v0.24
         run: |
-          kubectl apply -f /k8s.yaml
+          kubectl apply -f k8s.yaml

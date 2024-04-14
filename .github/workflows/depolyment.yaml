@@ -10,6 +10,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: scolley31
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -21,11 +22,3 @@ jobs:
           curl -H "Content-Type: application/json" \
           -d '{"content": "A new deployment has been initiated! Approve it here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
           ${{ secrets.DISCORD_WEBHOOK_URL }}
-#
-#      - name: Pause for approval
-#        uses: Convey/wait-for-discord-message@v1
-#        id: wait-for-approval
-#        with:
-#          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
-#          triggerMessage: 'approve'
-#          timeoutSeconds: 3600

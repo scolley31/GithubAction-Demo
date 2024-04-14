@@ -23,6 +23,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: scolley31
+    env:
+      IMAGE_TAG: ${{ github.event.inputs.tag }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -45,9 +47,10 @@ jobs:
       - name: Update kube config
         run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region $AWS_REGION
 
+      - name: Update Kubernetes Configuration
+        run: |
+          sed -i "s|demo:v0.21|demo:${{ env.IMAGE_TAG }}|g" k8s.yaml
+
       - name: Deploy to EKS
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: v0.24
         run: |
           kubectl apply -f k8s.yaml

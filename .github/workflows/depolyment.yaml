@@ -8,6 +8,14 @@ on:
         required: true
 
 jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send workflow URL to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{"content": "A new deployment has been initiated! Approve it here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
+          ${{ secrets.DISCORD_WEBHOOK_URL }}
   deploy:
     runs-on: ubuntu-latest
     environment: scolley31
@@ -16,9 +24,3 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.inputs.tag }}
-
-      - name: Send workflow URL to Discord
-        run: |
-          curl -H "Content-Type: application/json" \
-          -d '{"content": "A new deployment has been initiated! Approve it here: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}' \
-          ${{ secrets.DISCORD_WEBHOOK_URL }}
